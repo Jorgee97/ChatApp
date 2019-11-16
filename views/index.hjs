@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/lib/jquery/index.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <!-- I will show the chat box at this div -->
+    <div>
+      <div>
+        <div id="chat-box"></div>
+        <input type="text" id="user-text"/>
+        <button id="send-message">Sent</button>
+      </div>
+    </div>
+    <!-- I will show the channels here -->
+    <div>
+      
+    </div>
+  </body>
+</html>
+<script src="/javascripts/main.js"></script>
