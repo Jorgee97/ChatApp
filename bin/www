@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../app').app;
 var debug = require('debug')('chatapp:server');
 var http = require('http');
 
@@ -19,8 +19,8 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+var server = require('../app').server;
+var io = require('../app').io;
 
 /**
  * Pass the socket.io instance to the chat service
