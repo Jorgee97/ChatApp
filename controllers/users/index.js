@@ -49,24 +49,25 @@ module.exports = {
                     if (userInfo) {
                         req.session.username = userInfo.username;
                         req.session._id = userInfo._id;
-                        res.render('index', {
-                            title: 'Chat Application',
-                            welcome: 'Welcome back ' + username
-                        });
+                        res.redirect('/');
                     } else{
                         res.render('login', {
                             title: 'Chat Application - Login',
                             errorMessage: "User not found, validate your username and password."
                         });                        
                     }
-                })
-
+                });
             } else {
                 res.render('login', {
                     title: 'Chat Application - Login',
                     errorMessage: "User not found, validate your username and password."
                 });
             }
+        });
+    },
+    logout(req, res) {
+        req.session.destroy(err => {
+            if (!err) req.session = null;
         })
     }
 };

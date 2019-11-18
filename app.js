@@ -43,6 +43,9 @@ io.use((socket, next) => {
   sessionMiddleware(socket.request, socket.request.res, next);
 });
 
+// Running the bot that handles the stocks
+require('./services/bot/consumer')(io);
+
 app.use(sessionMiddleware);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

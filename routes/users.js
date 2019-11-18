@@ -13,7 +13,9 @@ router.get('/register', (req, res) => {
     title: 'Chat Application - Register'
   });
 });
+router.get('/logout', UserController.logout);
 router.post('/register/create', UserController.register);
 router.post('/login', UserController.login);
+
 
 module.exports = router;
