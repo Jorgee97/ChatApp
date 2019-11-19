@@ -1,10 +1,12 @@
 var amqp = require("amqplib/callback_api");
 const { validateCommand, getStockCode, requestStock } = require('./fileManagement');
 
+const RabbitConnection = "amqp://localhost" || process.env.RABBIT_MQ;
+
 let ch = null;
 const prefix = '/stock=';
 module.exports = function(io) {
-  amqp.connect("amqp://localhost", (err, connection) => {
+  amqp.connect(RabbitConnection, (err, connection) => {
     if (err) throw err; // Failing fast in case of error is found
 
     connection.createChannel((err1, channel) => {

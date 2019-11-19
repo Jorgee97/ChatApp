@@ -1,8 +1,9 @@
 var amqp = require("amqplib/callback_api");
 
+const RabbitConnection = "amqp://localhost" || process.env.RABBIT_MQ;
 // Method to push messages from the user to the RabbitMQ queue
 const producer = message => {
-  amqp.connect("amqp://localhost", (err, connection) => {
+  amqp.connect(RabbitConnection, (err, connection) => {
     if (err) throw err;
 
     connection.createChannel((err1, channel) => {
