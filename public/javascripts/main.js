@@ -34,6 +34,7 @@ btnSendMessage.click(() => {
     let messageToSend = message.val();    
     addRowToChatBox("Me", messageToSend);
     sendMessage(messageToSend);
+    message.val('');
 });
 
 
