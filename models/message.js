@@ -7,8 +7,7 @@ const schemaOptions = {
 }
 
 var MessagesModelSchema = new Schema({
-    username: String, // The user that sends the message
-    room: String,
+    username: String, // The user that sends the message    
     message: String
 }, schemaOptions);
 

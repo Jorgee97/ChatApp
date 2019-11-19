@@ -4,22 +4,24 @@
 
 let chatBox = $("#chat-box");
 let btnSendMessage = $("#send-message");
-let user = $("#username");
 let message = $("#user-text");
 let socket = io();
 
 
-function addRowToChatBox(user, text) {
+function addRowToChatBox(user, text, color="blue") {
     chatBox.append(`
         <div class="flex flex-row">
-            <span>${user}: ${text}</span>
+            <span style='color: ${color}'>${user}: ${text}</span>
         </div>
     `)
 }
 
-function sendMessage(user, text) {
-    socket.emit('message', {
-        username: user,
+function addNotification(text) {
+    chatBox.append(text);
+}
+
+function sendMessage(text) {
+    socket.emit('message', {        
         message: text
     });
 }
@@ -29,16 +31,34 @@ function cleanChatBox() {
 }
 
 btnSendMessage.click(() => {
-    let messageToSend = message.val();
-    let username = user.val();
+    let messageToSend = message.val();    
     addRowToChatBox("Me", messageToSend);
-    sendMessage(username, messageToSend);
+    sendMessage(messageToSend);
 });
 
 
 // Socket.io handling methods
 
+socket.on('user is disconnected', () => {
+    location.href = "/users";
+});
+
 socket.on('new message', (data) => {
     const {username, message} = data;
-    addRowToChatBox(username, message);
+    const color = "red"
+    addRowToChatBox(username, message, color);
+});
+
+socket.on('old messages', (messages) => {
+    for (msg of messages) {
+        addRowToChatBox(msg.username, msg.message);
+    }
+});
+
+socket.on('user connected', (text) => {
+    addNotification(text);
+});
+
+socket.on('user disconnected', (text) => {
+    addNotification(text);
 });
